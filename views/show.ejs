@@ -1,0 +1,33 @@
+<% layout("/layouts/boilerplate") -%>
+    <h3>Details</h3>
+    <div class="row">
+        <div class="card">
+            <div class="image col-6 offset-3">
+            <img src="<%=list.image%>" class="card-img-top" alt="anyimage">
+            </div>
+            <div class="card-body col-6 offset-3">
+                <p class="card-text">
+                    <b><%=list.title%></b><br>
+                    <%=list.description%> <br>
+                    &#8377;<%=list.price.toLocaleString("en-IN")%>
+                </p>
+            </div>
+        </div>
+<div class="show-btn col-6 offset-3 d-flex gap-2 mt-3">
+    <a href="/staynest/listings/<%=list.id%>/edit" class="btn">
+        Edit
+    </a>
+
+    <form action="/staynest/listings/<%=list.id%>?_method=DELETE" method="POST">
+        <button class="btn" type="submit">
+            Delete
+        </button>
+    </form>
+
+    <a href="/staynest/listings" class="btn close-button">
+        Close
+    </a>
+</div>
+
+    </div>
+</body>

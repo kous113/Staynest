@@ -1,0 +1,99 @@
+<% layout("/layouts/boilerplate") -%>
+    <h3>New List</h3>
+    <form action="/staynest/listings" method="POST" novalidate class="needs-validation">
+      <div class="row">
+        <div class="col-8 offset-2">
+          <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input
+              class="form-control"
+              type="text"
+              id="title"
+              name="listings[title]"
+              placeholder="Title.."
+              required
+            />
+            <div class="valid-feedback">Title Looks Good!</div>
+          </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea
+              class="form-control"
+              id="description"
+              name="listings[description]"
+              placeholder="description.."
+              required
+            ></textarea>
+            <div class="invalid-feedback">Add a Description</div>
+          </div>
+          <div class="mb-3">
+            <label for="image" class="form-label">Image Link/Url</label>
+            <input
+              class="form-control"
+              type="text"
+              name="listings[image]"
+              id="image"
+              placeholder="image link/url"
+            />
+          </div>
+          <div class="row">
+            <div class="mb-3 col-md-4">
+              <label for="price" class="form-label">Price/night</label>
+              <input
+                id="price"
+                name="listings[price]"
+                placeholder="&#8377;1,500"
+                class="form-control"
+                required
+              />
+              <div class="invalid-feedback">Add Valid Price</div>
+            </div>
+
+            <div class="mb-3 col-md-4">
+              <label for="location" class="form-label">Location</label>
+              <input
+                class="form-control"
+                id="location"
+                type="text"
+                name="listings[location]"
+                placeholder="enter location"
+                required
+              />
+              <div class="invalid-feedback">Add Valid Location</div>
+            </div>
+
+            <div class="mb-3 col-md-4">
+              <label for="country" class="form-label">Country</label>
+              <input
+                class="form-control"
+                type="text"
+                name="listings[country]"
+                id="country"
+                placeholder="enter country"
+                required
+              />
+              <div class="invalid-feedback">Enter Valid Countryc</div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="owner" class="form-label">Owner</label>
+            <input
+              class="form-control"
+              type="text"
+              name="listings[owner]"
+              id="owner"
+              placeholder="owner"
+              required
+            />
+          </div>
+
+          <div >
+            <button class="btn btn-dark">Create New..</button>
+            <a href="/staynest/listings" class="btn close-button">
+              Close
+            </a>
+          </div>
+        </div>
+      </div>
+    </form>
+</body>

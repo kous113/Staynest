@@ -1,0 +1,90 @@
+<% layout("/layouts/boilerplate") -%>
+<body>
+  <h1>Edit</h1>
+  <form action="/staynest/listings/<%=list.id%>?_method=PUT" method="POST" novalidate class="needs-validation">
+    <div class="row">
+      <div class="col-8 offset-2">
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input
+            class="form-control"
+            type="text"
+            id="id"
+            name="listings[title]"
+            value="<%=list.title%>"
+            required
+          />
+          <div class="valid-feedback">Title Looks Good!</div>
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea
+            name="listings[description]"
+            id="description"
+            class="form-control"
+            required
+          ><%=list.description%></textarea>
+          <div class="invalid-feedback">Add a Description</div>
+        </div>
+        <div class="mb-3">
+          <label for="image" class="form-label">Image Link/Url</label>
+          <input
+            class="form-control"
+            type="text"
+            name="listings[image]"
+            id="image"
+            value="<%=list.image%>"
+            required
+          />
+          <div class="invalid-feedback">Image Can't be Blank</div>
+        </div>
+        <div class="row">
+          <div class="mb-3 col-md-4">
+            <label for="price" class="form-label">Price/night</label>
+            <input
+              type="number"
+              id="price"
+              name="listings[price]"
+              value="<%=list.price%>"
+              class="form-control"
+              required
+            />
+            <div class="invalid-feedback">Add Valid Price</div>
+          </div>
+
+          <div class="mb-3 col-md-4">
+            <label for="location" class="form-label">Location</label>
+            <input
+              class="form-control"
+              id="location"
+              type="text"
+              name="listings[location]"
+              value="<%=list.location%>"
+              required
+            />
+            <div class="invalid-feedback">Add Valid Location</div>
+          </div>
+
+          <div class="mb-3 col-md-4">
+            <label for="country" class="form-label">Country</label>
+            <input
+              class="form-control"
+              type="text"
+              name="listings[country]"
+              id="country"
+              value="<%=list.country%>"
+              required
+            />
+            <div class="invalid-feedback">Enter Valid Countryc</div>
+          </div>
+        </div>
+        <div>
+          <button class="btn btn-dark">Edit</button>
+            <a href="/staynest/listings/<%=list.id%>" class="btn close-button">
+              Close
+            </a>
+        </div>
+      </div>
+    </div>
+  </form>
+</body>
