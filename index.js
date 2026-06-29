@@ -16,28 +16,21 @@ app.use(express.static("public"));
 const asyncWrap=require("./utils/async.js");
 const ExpressError=require("./utils/Expresserror.js");
 const { nextTick } = require("process");
-//asyncerr handeling
+const listingSchema=require("./schema.js");
+const Joi=require("joi");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//validate schemas
+const validateSchema=(req,res,next)=>{
+  const {error}=listingSchema.validate(req.body);
+  
+  if(error){
+    const errorMsg=error.details.map((el)=>`${el.context.key} is required`).join(",");
+    throw new ExpressError(404,errorMsg);
+  }
+  else{
+    next();
+  }
+}
 
 
 
@@ -62,11 +55,11 @@ app.get("/staynest", (req, res) => {
   res.send("home page");
 });
 //Showing all listings
-app.get("/staynest/listings", async (req, res) => {
+app.get("/staynest/listings", asyncWrap(async (req, res) => {
   const allList = await Listing.find({});
   //console.log(allList);
   res.render("index.ejs", { allList });
-});
+}));
 
 //New List
 app.get("/staynest/listings/new", (req, res) => {
@@ -74,40 +67,39 @@ app.get("/staynest/listings/new", (req, res) => {
 });
 
 //Showing particular list details
-app.get("/staynest/listings/:id", async (req, res) => {
+app.get("/staynest/listings/:id", asyncWrap(async (req, res) => {
   const { id } = req.params;
   let list = await Listing.findById(id);
   res.render("show.ejs", { list });
-});
+}));
 
 //New List
-app.post("/staynest/listings", asyncWrap(async (req, res,next) => {
-
+app.post("/staynest/listings", validateSchema, asyncWrap(async (req, res,next) => {
   const newList = new Listing(req.body.listings);
   await newList.save();
   res.redirect("/staynest/listings");
 }));
 
 //Update list
-app.get("/staynest/listings/:id/edit", async (req, res) => {
+app.get("/staynest/listings/:id/edit", validateSchema, asyncWrap(async (req, res) => {
   const { id } = req.params;
   const list = await Listing.findById(id);
   res.render("edit.ejs", { list });
-});
-app.put("/staynest/listings/:id", async (req, res) => {
+}));
+app.put("/staynest/listings/:id", asyncWrap(async (req, res) => {
   const { id } = req.params;
   //console.log(id);
   const list = await Listing.findByIdAndUpdate(id, { ...req.body.listings });
 
   res.redirect(`/staynest/listings/${id}`);
-});
+}));
 
 //Delete List
-app.delete("/staynest/listings/:id", async (req, res) => {
+app.delete("/staynest/listings/:id", asyncWrap(async (req, res) => {
   const { id } = req.params;
   await Listing.findByIdAndDelete(id);
   res.redirect("/staynest/listings");
-});
+}));
 
 //Log in and sign in form
 app.get("/staynest/signIn", (req, res) => {
@@ -124,9 +116,7 @@ app.post("/staynest/register",(req,res)=>{
   res.redirect("/staynest");
 })
 
-// app.use((err,req,res,next)=>{
-//   res.send("something went wrong");
-// })
+
 
 app.all("/{*splat}",(req,res,next)=>{
   next(new ExpressError(404, "Page not found"));
@@ -135,5 +125,5 @@ app.all("/{*splat}",(req,res,next)=>{
 app.use((err,req,res,next)=>{
   console.dir(err);
   const {statusCode=500,message="something went wrong"}=err;
-  res.status(statusCode).send(message);
+  res.render("error.ejs",{err});
 })
