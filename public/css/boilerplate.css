@@ -127,7 +127,7 @@ h3 {
 }
 /*New list Style*/
 .btn {
-  margin-left: 1rem;
+  /*margin-left: 1rem;*/
   background-color: rgb(221, 109, 71);
   border: none;
   transition: 170ms;
@@ -140,7 +140,6 @@ h3 {
   color: white;
 }
 .close-button {
-  margin-left: 1rem;
   text-decoration: none;
 }
 

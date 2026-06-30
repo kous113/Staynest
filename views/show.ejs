@@ -13,21 +13,38 @@
                 </p>
             </div>
         </div>
-<div class="show-btn col-6 offset-3 d-flex gap-2 mt-3">
-    <a href="/staynest/listings/<%=list.id%>/edit" class="btn">
-        Edit
-    </a>
+        <div class="show-btn col-6 offset-3 d-flex gap-2 mt-3">
+            <a href="/staynest/listings/<%=list.id%>/edit" class="btn">
+                Update
+            </a>
 
-    <form action="/staynest/listings/<%=list.id%>?_method=DELETE" method="POST">
-        <button class="btn" type="submit">
-            Delete
-        </button>
-    </form>
+            <form action="/staynest/listings/<%=list.id%>?_method=DELETE" method="POST" class="m-0">
+                <button class="btn" type="submit">
+                    Delete
+                </button>
+            </form>
 
-    <a href="/staynest/listings" class="btn close-button">
-        Close
-    </a>
-</div>
+            <a href="/staynest/listings" class="btn close-button">
+                Close
+            </a>
+        </div>
+        <div class="review col-8 offset-3 mt-3 mb-3">
+            <h4>Reviews</h4>
+            <form action="/staynest/listings/<%=list.id%>/review" method="POST">
+                <div class="ratings mt-3 mb-3">
+                    <label for="range1" class="form-label">Rating</label>
+                    <input type="range" name="review[rating]" class="form-range" id="range1" min="1" max="5">
+                </div>
+                <div class="comments mb-3 mt-3">
+                    <label for="comments" class="form-label">Comments</label>
+                    <textarea name="review[comments]" id="comments" class="form-control" rows="10" placeholder="Leave a Comment.."></textarea>
+                </div>
+                <div class="button col-3">
+                <button type="submit" class="btn btn-outline-dark">Submit</button>
+                </div>
+
+            </form>
+        </div>
 
     </div>
 </body>

@@ -4,6 +4,7 @@ const port = 8000;
 const mongoose = require("mongoose");
 const mongoURL = "mongodb://127.0.0.1:27017/staynest";
 const Listing = require("./models/listing.js");
+const Review = require("./models/review.js");
 const path = require("path");
 const methodOverriding = require("method-override");
 const ejsMate = require("ejs-mate");
@@ -94,12 +95,27 @@ app.put("/staynest/listings/:id", asyncWrap(async (req, res) => {
   res.redirect(`/staynest/listings/${id}`);
 }));
 
+
 //Delete List
 app.delete("/staynest/listings/:id", asyncWrap(async (req, res) => {
   const { id } = req.params;
   await Listing.findByIdAndDelete(id);
   res.redirect("/staynest/listings");
 }));
+
+
+//Review
+app.post("/staynest/listings/:id/review",async(req,res)=>{
+  let newReview = new Review(req.body.review);
+  console.log(newReview);
+  let listing=await Listing.findById(req.params.id);
+  await listing.review.push(newReview);
+
+  await listing.save();
+  await newReview.save();
+  res.redirect(`/staynest/listings/${req.params.id}`)
+})
+
 
 //Log in and sign in form
 app.get("/staynest/signIn", (req, res) => {
@@ -115,10 +131,14 @@ app.post("/staynest/register",(req,res)=>{
   console.log(req.body);
   res.redirect("/staynest");
 })
-
+//favicon
+app.get("/favicon.ico", (req, res) => {
+  res.status(204).end();
+});
 
 
 app.all("/{*splat}",(req,res,next)=>{
+  console.log(req.originalUrl);
   next(new ExpressError(404, "Page not found"));
 })
 //unknow route calling error

@@ -1,5 +1,5 @@
+const { ref } = require("joi");
 const mongoose=require("mongoose");
-
 const Schema=mongoose.Schema;
 const listngSchema=new Schema({
   title:{
@@ -24,7 +24,13 @@ const listngSchema=new Schema({
   },
   owner:{
     type: String,
-  }
+  },
+  review:[
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Review"
+    }
+  ]
 });
 
 const Listing=mongoose.model("Listing",listngSchema);
