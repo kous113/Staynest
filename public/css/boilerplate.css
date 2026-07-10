@@ -87,7 +87,7 @@ h3 {
   width: 100%;
   text-decoration: none;
 }
-.f-info-terms a:hover{
+.f-info-terms a:hover {
   text-decoration: underline;
 }
 .f-info-socials {
@@ -102,7 +102,7 @@ h3 {
 }
 
 /*Cards*/
-.card {
+.listing-card {
   border: none !important;
   margin-bottom: 2rem;
 }
@@ -143,6 +143,7 @@ h3 {
   text-decoration: none;
 }
 
-.show-btn{
+.show-btn {
   display: flex;
 }
+

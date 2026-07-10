@@ -16,13 +16,23 @@ app.use(methodOverriding("_method"));
 app.use(express.static("public"));
 const asyncWrap=require("./utils/async.js");
 const ExpressError=require("./utils/Expresserror.js");
-const { nextTick } = require("process");
-const listingSchema=require("./schema.js");
+const {listingSchema, reviewSchema }=require("./schema.js");
 const Joi=require("joi");
 
 //validate schemas
 const validateSchema=(req,res,next)=>{
   const {error}=listingSchema.validate(req.body);
+  
+  if(error){
+    const errorMsg=error.details.map((el)=>`${el.context.key} is required`).join(",");
+    throw new ExpressError(404,errorMsg);
+  }
+  else{
+    next();
+  }
+}
+const validateReview=(req,res,next)=>{
+  const {error}=reviewSchema.validate(req.body);
   
   if(error){
     const errorMsg=error.details.map((el)=>`${el.context.key} is required`).join(",");
@@ -70,7 +80,8 @@ app.get("/staynest/listings/new", (req, res) => {
 //Showing particular list details
 app.get("/staynest/listings/:id", asyncWrap(async (req, res) => {
   const { id } = req.params;
-  let list = await Listing.findById(id);
+  let list = await Listing.findById(id).populate("review");
+  console.log(list);
   res.render("show.ejs", { list });
 }));
 
@@ -105,7 +116,7 @@ app.delete("/staynest/listings/:id", asyncWrap(async (req, res) => {
 
 
 //Review
-app.post("/staynest/listings/:id/review",async(req,res)=>{
+app.post("/staynest/listings/:id/review",validateReview,asyncWrap(async(req,res)=>{
   let newReview = new Review(req.body.review);
   console.log(newReview);
   let listing=await Listing.findById(req.params.id);
@@ -113,9 +124,17 @@ app.post("/staynest/listings/:id/review",async(req,res)=>{
 
   await listing.save();
   await newReview.save();
-  res.redirect(`/staynest/listings/${req.params.id}`)
-})
+  res.redirect(`/staynest/listings/${req.params.id}`);
+}));
 
+//Delete review
+app.delete("/staynest/:id/review/:reviewId",asyncWrap(async(req,res)=>{
+  let {id,reviewId}=req.params;
+  await Review.findByIdAndDelete(reviewId);
+  await Listing.findByIdAndUpdate(id,{$pull: {review:reviewId}});
+
+  res.redirect(`/staynest/listings/${id}`);
+}))
 
 //Log in and sign in form
 app.get("/staynest/signIn", (req, res) => {

@@ -1,5 +1,6 @@
 const Joi=require("joi");
-const listchema=Joi.object({
+const { model } = require("mongoose");
+module.exports.listchema=Joi.object({
     listings:Joi.object({
         title:Joi.string().required(),
         description:Joi.string().required(),
@@ -9,4 +10,9 @@ const listchema=Joi.object({
         country:Joi.string().required()
     }).required()
 })
-module.exports=listchema;
+module.exports.reviewSchema=Joi.object({
+    review:Joi.object({
+        rating: Joi.number().required().min(1).max(5),
+        comments:Joi.string().required()
+    }).required()
+})

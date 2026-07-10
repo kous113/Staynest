@@ -1,7 +1,7 @@
 <% layout("/layouts/boilerplate") -%>
     <h3>Details</h3>
     <div class="row">
-        <div class="card">
+        <div class="card listing-card">
             <div class="image col-6 offset-3">
             <img src="<%=list.image%>" class="card-img-top" alt="anyimage">
             </div>
@@ -30,20 +30,47 @@
         </div>
         <div class="review col-8 offset-3 mt-3 mb-3">
             <h4>Reviews</h4>
-            <form action="/staynest/listings/<%=list.id%>/review" method="POST">
+            <form action="/staynest/listings/<%=list.id%>/review" class="needs-validation" novalidate method="POST">
                 <div class="ratings mt-3 mb-3">
                     <label for="range1" class="form-label">Rating</label>
                     <input type="range" name="review[rating]" class="form-range" id="range1" min="1" max="5">
                 </div>
                 <div class="comments mb-3 mt-3">
                     <label for="comments" class="form-label">Comments</label>
-                    <textarea name="review[comments]" id="comments" class="form-control" rows="10" placeholder="Leave a Comment.."></textarea>
+                    <textarea
+                    rows="4"
+                    class="form-control"
+                    id="comments"
+                    name="review[comments]"
+                    placeholder="Share Your Thoughts.."
+                    required
+                    ></textarea>
+                    <div class="invalid-feedback">Add a Comment</div>
                 </div>
                 <div class="button col-3">
                 <button type="submit" class="btn btn-outline-dark">Submit</button>
                 </div>
 
             </form>
+        </div>
+        <div class="allReviews col-8 offset-3 mt-4">
+            <div class="row">
+            <%for(let review of list.review){%>
+                <div class="card col-5 mb-3 ms-3">
+                <div class="card-body">
+                    <p><b>Jon Doe</b></p>
+                    <p class="card-text"><%=review.comments%></p>
+                </div>
+                <div class="delete">
+                <form action="/staynest/<%=list.id%>/review/<%=review.id%>?_method=DELETE" method="POST" class="mb-3 mt-2">
+                    <button type="submit" class="btn btn-sm btn-outline-light">
+                        Delete
+                    </button>
+                </form>
+                </div>
+                </div>
+            <%}%>
+            </div>
         </div>
 
     </div>
