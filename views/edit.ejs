@@ -1,7 +1,7 @@
 <% layout("/layouts/boilerplate") -%>
 <body>
   <h1>Edit</h1>
-  <form action="/staynest/listings/<%=list.id%>?_method=PUT" method="POST" novalidate class="needs-validation">
+  <form action="/listings/<%=list.id%>?_method=PUT" method="POST" novalidate class="needs-validation">
     <div class="row">
       <div class="col-8 offset-2">
         <div class="mb-3">
@@ -80,7 +80,7 @@
         </div>
         <div>
           <button class="btn btn-dark">Edit</button>
-            <a href="/staynest/listings/<%=list.id%>" class="btn close-button">
+            <a href="/listings/<%=list.id%>" class="btn close-button">
               Close
             </a>
         </div>

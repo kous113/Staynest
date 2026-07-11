@@ -14,23 +14,23 @@
             </div>
         </div>
         <div class="show-btn col-6 offset-3 d-flex gap-2 mt-3">
-            <a href="/staynest/listings/<%=list.id%>/edit" class="btn">
+            <a href="/listings/<%=list.id%>/edit" class="btn">
                 Update
             </a>
 
-            <form action="/staynest/listings/<%=list.id%>?_method=DELETE" method="POST" class="m-0">
+            <form action="/listings/<%=list.id%>?_method=DELETE" method="POST" class="m-0">
                 <button class="btn" type="submit">
                     Delete
                 </button>
             </form>
 
-            <a href="/staynest/listings" class="btn close-button">
+            <a href="/listings" class="btn close-button">
                 Close
             </a>
         </div>
         <div class="review col-8 offset-3 mt-3 mb-3">
             <h4>Reviews</h4>
-            <form action="/staynest/listings/<%=list.id%>/review" class="needs-validation" novalidate method="POST">
+            <form action="/listings/<%=list.id%>/review" class="needs-validation" novalidate method="POST">
                 <div class="ratings mt-3 mb-3">
                     <label for="range1" class="form-label">Rating</label>
                     <input type="range" name="review[rating]" class="form-range" id="range1" min="1" max="5">
@@ -62,7 +62,7 @@
                     <p class="card-text"><%=review.comments%></p>
                 </div>
                 <div class="delete">
-                <form action="/staynest/<%=list.id%>/review/<%=review.id%>?_method=DELETE" method="POST" class="mb-3 mt-2">
+                <form action="/listings/<%=list.id%>/review/<%=review.id%>?_method=DELETE" method="POST" class="mb-3 mt-2">
                     <button type="submit" class="btn btn-sm btn-outline-light">
                         Delete
                     </button>

@@ -1,6 +1,8 @@
 const { ref } = require("joi");
 const mongoose=require("mongoose");
 const Schema=mongoose.Schema;
+const review=require("./review.js");
+const Review = require("./review.js");
 const listngSchema=new Schema({
   title:{
     type: String,
@@ -32,6 +34,10 @@ const listngSchema=new Schema({
     }
   ]
 });
+
+listngSchema.post("findOneAndDelete",async (listing) => {
+  await Review.deleteMany({_id:{$in: listing.review}});
+})
 
 const Listing=mongoose.model("Listing",listngSchema);
 module.exports=Listing;

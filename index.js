@@ -18,30 +18,11 @@ const asyncWrap=require("./utils/async.js");
 const ExpressError=require("./utils/Expresserror.js");
 const {listingSchema, reviewSchema }=require("./schema.js");
 const Joi=require("joi");
+const listing=require("./routes/listing.js");
+const review=require("./routes/review.js")
 
-//validate schemas
-const validateSchema=(req,res,next)=>{
-  const {error}=listingSchema.validate(req.body);
-  
-  if(error){
-    const errorMsg=error.details.map((el)=>`${el.context.key} is required`).join(",");
-    throw new ExpressError(404,errorMsg);
-  }
-  else{
-    next();
-  }
-}
-const validateReview=(req,res,next)=>{
-  const {error}=reviewSchema.validate(req.body);
-  
-  if(error){
-    const errorMsg=error.details.map((el)=>`${el.context.key} is required`).join(",");
-    throw new ExpressError(404,errorMsg);
-  }
-  else{
-    next();
-  }
-}
+
+
 
 
 
@@ -62,79 +43,16 @@ app.listen(port, () => {
 });
 
 //Home page
-app.get("/staynest", (req, res) => {
+app.get("/staynest/", (req, res) => {
   res.send("home page");
 });
-//Showing all listings
-app.get("/staynest/listings", asyncWrap(async (req, res) => {
-  const allList = await Listing.find({});
-  //console.log(allList);
-  res.render("index.ejs", { allList });
-}));
-
-//New List
-app.get("/staynest/listings/new", (req, res) => {
-  res.render("newlist.ejs");
-});
-
-//Showing particular list details
-app.get("/staynest/listings/:id", asyncWrap(async (req, res) => {
-  const { id } = req.params;
-  let list = await Listing.findById(id).populate("review");
-  console.log(list);
-  res.render("show.ejs", { list });
-}));
-
-//New List
-app.post("/staynest/listings", validateSchema, asyncWrap(async (req, res,next) => {
-  const newList = new Listing(req.body.listings);
-  await newList.save();
-  res.redirect("/staynest/listings");
-}));
-
-//Update list
-app.get("/staynest/listings/:id/edit", validateSchema, asyncWrap(async (req, res) => {
-  const { id } = req.params;
-  const list = await Listing.findById(id);
-  res.render("edit.ejs", { list });
-}));
-app.put("/staynest/listings/:id", asyncWrap(async (req, res) => {
-  const { id } = req.params;
-  //console.log(id);
-  const list = await Listing.findByIdAndUpdate(id, { ...req.body.listings });
-
-  res.redirect(`/staynest/listings/${id}`);
-}));
 
 
-//Delete List
-app.delete("/staynest/listings/:id", asyncWrap(async (req, res) => {
-  const { id } = req.params;
-  await Listing.findByIdAndDelete(id);
-  res.redirect("/staynest/listings");
-}));
+
+app.use("/listings",listing);
+app.use("/listings/:id/review",review);
 
 
-//Review
-app.post("/staynest/listings/:id/review",validateReview,asyncWrap(async(req,res)=>{
-  let newReview = new Review(req.body.review);
-  console.log(newReview);
-  let listing=await Listing.findById(req.params.id);
-  await listing.review.push(newReview);
-
-  await listing.save();
-  await newReview.save();
-  res.redirect(`/staynest/listings/${req.params.id}`);
-}));
-
-//Delete review
-app.delete("/staynest/:id/review/:reviewId",asyncWrap(async(req,res)=>{
-  let {id,reviewId}=req.params;
-  await Review.findByIdAndDelete(reviewId);
-  await Listing.findByIdAndUpdate(id,{$pull: {review:reviewId}});
-
-  res.redirect(`/staynest/listings/${id}`);
-}))
 
 //Log in and sign in form
 app.get("/staynest/signIn", (req, res) => {
