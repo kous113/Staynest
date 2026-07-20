@@ -4,6 +4,7 @@ const Listing = require("../models/listing.js");
 const asyncWrap=require("../utils/async.js");
 const ExpressError=require("../utils/Expresserror.js");
 const {listingSchema }=require("../schema.js");
+const session = require("express-session");
 
 
 //validate schemas
@@ -34,13 +35,20 @@ router.get("/new", (req, res) => {
 router.get("/:id", asyncWrap(async (req, res) => {
   const { id } = req.params;
   let list = await Listing.findById(id).populate("review");
-  res.render("show.ejs", { list });
+  if(!list){
+    req.flash("error", "The list you searched can not be find");
+    res.redirect("/listings");
+  }
+  else{
+    res.render("show.ejs", { list });
+  }
 }));
 
 //New List
 router.post("/", validateSchema, asyncWrap(async (req, res,next) => {
   const newList = new Listing(req.body.listings);
   await newList.save();
+  req.flash("success", "New list created suceesfully");
   res.redirect("/listings");
 }));
 
@@ -48,7 +56,14 @@ router.post("/", validateSchema, asyncWrap(async (req, res,next) => {
 router.get("/:id/edit", validateSchema, asyncWrap(async (req, res) => {
   const { id } = req.params;
   const list = await Listing.findById(id);
-  res.render("edit.ejs", { list });
+  if(!list){
+    req.flash("error", "The list you searched can not be find");
+    res.redirect("/listings");
+  }
+  else{
+    res.render("edit.ejs", { list });
+  }
+  
 }));
 router.put("/:id", asyncWrap(async (req, res) => {
   const { id } = req.params;

@@ -1,0 +1,369 @@
+/* Warm Theme Color Palette */
+:root {
+  --bg: #f8f4ef;
+  --card-bg: #ffffff;
+
+  --primary: #fe6b3d;
+  --primary-hover: #e95b2e;
+
+  --secondary: #ff9f67;
+
+  --text-main: #3e2723;
+  --text-muted: #7b6d68;
+
+  --border: #e8ddd4;
+
+  --error: #d32f2f;
+
+  --shadow: rgba(62, 39, 35, 0.08);
+}
+
+/* ===========================
+        AUTH WRAPPER
+=========================== */
+
+.authModal {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+
+  background: linear-gradient(135deg, #eeb468, #f6ebe2);
+}
+
+.authModal * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+}
+
+/* ===========================
+          TITLE
+=========================== */
+
+.authModal .title {
+  color: #e95b2e;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.authModal .title span {
+  color: white;
+}
+
+/* ===========================
+        LOGIN CARD
+=========================== */
+
+.authModal .login-container {
+  width: 100%;
+  max-width: 430px;
+
+  padding: 40px;
+
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.18);
+
+  border: 1px solid rgba(255, 255, 255, 0.35);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.18);
+}
+
+/* ===========================
+        HEADER
+=========================== */
+
+.authModal .login-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.authModal .login-header h4,
+.authModal .login-header h2 {
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.authModal .login-header p {
+  color: var(--text-muted);
+}
+
+/* ===========================
+       INPUT GROUP
+=========================== */
+
+.authModal .auth-input-group {
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.authModal .auth-input-group label {
+  display: block;
+  width: 100%;
+
+  margin-bottom: 8px;
+
+  color: var(--text-main);
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.authModal .auth-input-group input[type="text"],
+.authModal .auth-input-group input[type="email"],
+.authModal .auth-input-group input[type="password"] {
+  display: block;
+
+  width: 100%;
+
+  padding: 12px 16px;
+
+  border: 1px solid var(--border);
+  border-radius: 8px;
+
+  background: #fafafa;
+
+  color: var(--text-main);
+
+  font-size: 15px;
+
+  outline: none;
+
+  transition: 0.3s;
+}
+
+.authModal .auth-input-group input:focus {
+  border-color: var(--primary);
+
+  background: white;
+
+  box-shadow: 0 0 0 4px rgba(216, 67, 21, 0.15);
+}
+
+/* ===========================
+      PASSWORD BOX
+=========================== */
+
+.authModal .password-wrapper {
+  position: relative;
+
+  width: 100%;
+}
+
+.authModal .password-wrapper input {
+  padding-right: 65px;
+}
+
+.authModal .toggle-btn {
+  position: absolute;
+
+  top: 50%;
+  right: 12px;
+
+  transform: translateY(-50%);
+
+  background: transparent;
+
+  border: none;
+
+  cursor: pointer;
+
+  color: var(--text-muted);
+
+  font-size: 13px;
+
+  font-weight: 600;
+}
+
+.authModal .toggle-btn:hover {
+  color: var(--primary);
+}
+.authModal {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+/* ===========================
+      REMEMBER SECTION
+=========================== */
+
+.authModal .form-actions {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 24px;
+
+  font-size: 14px;
+}
+
+.authModal .remember-me {
+  display: flex;
+
+  align-items: center;
+
+  color: var(--text-muted);
+}
+
+.authModal .remember-me input {
+  margin-right: 8px;
+
+  accent-color: var(--primary);
+}
+
+.authModal .forgot-link,
+.authModal .login-footer a {
+  color: var(--primary);
+
+  text-decoration: none;
+
+  font-weight: 600;
+}
+
+.authModal .forgot-link:hover,
+.authModal .login-footer a:hover {
+  color: var(--primary-hover);
+
+  text-decoration: underline;
+}
+
+/* ===========================
+        BUTTON
+=========================== */
+
+.authModal .submit-btn {
+  width: 100%;
+
+  padding: 14px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: var(--primary);
+
+  color: white;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.authModal .submit-btn:hover {
+  background: var(--primary-hover);
+
+  box-shadow: 0 4px 12px rgba(216, 67, 21, 0.2);
+}
+
+.authModal .submit-btn:active {
+  transform: scale(0.98);
+}
+
+/* ===========================
+        FOOTER
+=========================== */
+
+.authModal .login-footer {
+  margin-top: 28px;
+
+  text-align: center;
+
+  color: var(--text-muted);
+}
+
+/* ===========================
+      ERROR MESSAGE
+=========================== */
+
+.authModal .auth-input-group.invalid input {
+  border-color: var(--error);
+
+  box-shadow: 0 0 0 4px rgba(198, 40, 40, 0.1);
+}
+
+.authModal .error-message {
+  display: none;
+
+  margin-top: 4px;
+
+  color: var(--error);
+
+  font-size: 12px;
+}
+
+.authModal .auth-input-group.invalid .error-message {
+  display: block;
+}
+
+/* ===========================
+          HIDDEN
+=========================== */
+
+.authModal .hidden {
+  display: none !important;
+}
+
+/* ===========================
+       FADE ANIMATION
+=========================== */
+
+.authModal #signInBox,
+.authModal #signUpBox {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+/* ===========================
+        FLASH ERROR MESSAGE
+=========================== */
+
+.authModal .auth-error {
+  width: 100%;
+
+  padding: 12px 16px;
+
+  margin-top: 15px;
+  margin-bottom: 20px;
+
+  border-radius: 10px;
+
+  background: rgba(211, 47, 47, 0.1);
+
+  border: 1px solid rgba(211, 47, 47, 0.3);
+
+  color: var(--error);
+
+  font-size: 0.75rem;
+
+  font-weight: 600;
+
+  text-align: center;
+
+  animation: shake 0.3s ease;
+}
