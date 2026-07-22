@@ -28,7 +28,7 @@
                 Close
             </a>
         </div>
-        <div class="review col-8 offset-3 mt-3 mb-3">
+        <div class="review col-8 offset-2 mt-3 mb-3">
             <h4>Reviews</h4>
             <form action="/listings/<%=list.id%>/review" class="needs-validation" novalidate method="POST">
                 <div class="ratings mt-3 mb-3">
@@ -53,7 +53,7 @@
 
             </form>
         </div>
-        <div class="allReviews col-8 offset-3 mt-4">
+        <div class="allReviews col-8 offset-2 mt-4">
             <div class="row">
             <%for(let review of list.review){%>
                 <div class="card col-5 mb-3 ms-3">

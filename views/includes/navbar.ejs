@@ -24,9 +24,19 @@
         <a class="nav-link active" href="/staynest">Home</a>
         <a class="nav-link" href="/listings">All Listings</a>
       </div>
+      <% if(!currUser){ %>
       <a href="/staynest/sign-up">
-      <button class="sign-in" id="openModal">Sign In</button>
+      <button class="sign-up" id="openModal">Sign Up</button>
       </a>
+      <a href="/staynest/sign-in">
+      <button class="sign-up" id="openModal">Sign In</button>
+      </a>
+      <%}%>
+      <% if(currUser){ %>
+      <a href="/staynest/logout">
+      <button class="sign-up" id="openModal">Log Out</button>
+      </a>
+      <%}%>
 
     </div>
   </div>

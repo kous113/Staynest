@@ -5,6 +5,8 @@ const asyncWrap=require("../utils/async.js");
 const ExpressError=require("../utils/Expresserror.js");
 const {listingSchema }=require("../schema.js");
 const session = require("express-session");
+const {isLoggedin}=require("../middleware.js");
+const {saveRedirectUrl}=require("../middleware.js");
 
 
 //validate schemas
@@ -27,7 +29,8 @@ router.get("/", asyncWrap(async (req, res) => {
 }));
 
 //New List
-router.get("/new", (req, res) => {
+router.get("/new",isLoggedin,(req, res) => {
+  //.log(req.originalUrl);
   res.render("newlist.ejs");
 });
 
@@ -53,7 +56,7 @@ router.post("/", validateSchema, asyncWrap(async (req, res,next) => {
 }));
 
 //Update list
-router.get("/:id/edit", validateSchema, asyncWrap(async (req, res) => {
+router.get("/:id/edit", validateSchema,isLoggedin,asyncWrap(async (req, res) => {
   const { id } = req.params;
   const list = await Listing.findById(id);
   if(!list){
@@ -75,7 +78,7 @@ router.put("/:id", asyncWrap(async (req, res) => {
 
 
 //Delete List
-router.delete("/:id", asyncWrap(async (req, res) => {
+router.delete("/:id", isLoggedin,asyncWrap(async (req, res) => {
   const { id } = req.params;
   await Listing.findByIdAndDelete(id);
   res.redirect("/listings");
