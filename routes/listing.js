@@ -37,7 +37,8 @@ router.get("/new",isLoggedin,(req, res) => {
 //Showing particular list details
 router.get("/:id", asyncWrap(async (req, res) => {
   const { id } = req.params;
-  let list = await Listing.findById(id).populate("review");
+  let list = await Listing.findById(id).populate("review").populate("owner");
+  console.log(req.user);
   if(!list){
     req.flash("error", "The list you searched can not be find");
     res.redirect("/listings");
@@ -50,6 +51,7 @@ router.get("/:id", asyncWrap(async (req, res) => {
 //New List
 router.post("/", validateSchema, asyncWrap(async (req, res,next) => {
   const newList = new Listing(req.body.listings);
+  newList.owner=req.user._id;
   await newList.save();
   req.flash("success", "New list created suceesfully");
   res.redirect("/listings");

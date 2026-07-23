@@ -6,14 +6,16 @@
             <img src="<%=list.image%>" class="card-img-top" alt="anyimage">
             </div>
             <div class="card-body col-6 offset-3">
-                <p class="card-text">
-                    <b><%=list.title%></b><br>
-                    <%=list.description%> <br>
-                    &#8377;<%=list.price.toLocaleString("en-IN")%>
-                </p>
+                <p class="card-text">Owned By <i><b><%=list.owner.username%></b></i></p>
+                <p class="card-text"><b><%=list.title%></b></p>
+                <p class="card-text"><%=list.description%></p>
+                <p class="card-text"> &#8377;<%=list.price.toLocaleString("en-IN")%> </p>
+                <p class="card-text"><%=list.location%></p>
+                <p class="card-text"><%=list.country%></p>
             </div>
         </div>
         <div class="show-btn col-6 offset-3 d-flex gap-2 mt-3">
+            <% if(currUser && currUser._id.equals(list.owner._id)){%>
             <a href="/listings/<%=list.id%>/edit" class="btn">
                 Update
             </a>
@@ -23,10 +25,7 @@
                     Delete
                 </button>
             </form>
-
-            <a href="/listings" class="btn close-button">
-                Close
-            </a>
+            <%}%>
         </div>
         <div class="review col-8 offset-2 mt-3 mb-3">
             <h4>Reviews</h4>

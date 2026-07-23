@@ -24,15 +24,16 @@ const listngSchema=new Schema({
   country:{
     type:String,
   },
-  owner:{
-    type: String,
-  },
   review:[
     {
       type: Schema.Types.ObjectId,
       ref: "Review"
     }
-  ]
+  ],
+  owner:{
+    type:Schema.Types.ObjectId,
+    ref:"User"
+  }
 });
 
 listngSchema.post("findOneAndDelete",async (listing) => {
