@@ -39,7 +39,6 @@ router.get("/sign-in", (req, res) => {
 router.post("/sign-in",saveRedirectUrl,passport.authenticate("local",{failureRedirect:"/staynest/sign-in", failureFlash:true,}), async(req,res)=>{
   
   console.log("Login successful");
-  console.log(res.locals.savedUrl);
   res.redirect(res.locals.savedUrl || "/listings");
 })
 

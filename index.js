@@ -51,19 +51,6 @@ app.use((req,res,next)=>{
   next();
 })
 
-
-// app.get("/demouser",async(req,res)=>{
-//   let fakeuser=new User({
-//     email:"hello@gmail.com",
-//     username:"wow"
-//   })
-//   let newuser=await User.register(fakeuser,"helloworld");
-//   res.send(newuser);
-// })
-
-
-
-
 //connecting to database
 main()
   .then(() => {
@@ -85,14 +72,9 @@ app.get("/staynest/", (req, res) => {
   res.send("home page");
 });
 
-
-
 app.use("/listings",listing);
 app.use("/listings/:id/review",review);
 app.use("/staynest",user);
-
-
-
 
 //Log in and sign in form
 app.get("/staynest/sign-up", (req, res) => {
@@ -113,11 +95,6 @@ app.post("/staynest/register",(req,res)=>{
 app.get("/favicon.ico", (req, res) => {
   res.status(204).end();
 });
-
-// app.use((req, res, next) => {
-//     console.log("Incoming request:", req.method, req.originalUrl);
-//     next();
-// });
 
 app.all("/{*splat}",(req,res,next)=>{
   console.log(req.originalUrl);
