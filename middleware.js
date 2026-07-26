@@ -7,7 +7,7 @@ module.exports.isLoggedin=((req,res,next)=>{
     if(!req.isAuthenticated()){
         req.session.redirectUrl=req.originalUrl;
         req.flash("error","You must be signed in to perform this action.");
-        return res.redirect("/staynest/sign-in");
+        return res.redirect("/sign-in");
     }
     next();
 });

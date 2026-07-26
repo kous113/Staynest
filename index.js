@@ -67,30 +67,10 @@ app.listen(port, () => {
   console.log("server working");
 });
 
-//Home page
-app.get("/staynest/", (req, res) => {
-  res.send("home page");
-});
-
 app.use("/listings",listing);
 app.use("/listings/:id/review",review);
-app.use("/staynest",user);
+app.use("/",user);
 
-//Log in and sign in form
-app.get("/staynest/sign-up", (req, res) => {
-  res.render("signIn.ejs");
-});
-//log in post req
-app.post("/staynest/sign-in",(req,res)=>{
-  let detail=req.body;
-  console.log(detail);
-  res.send("/staynest");
-})
-//registe post req
-app.post("/staynest/register",(req,res)=>{
-  console.log(req.body);
-  res.redirect("/staynest");
-})
 //favicon
 app.get("/favicon.ico", (req, res) => {
   res.status(204).end();
