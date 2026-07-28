@@ -1,42 +1,23 @@
 <nav class="navbar navbar-expand-md sticky-top border-bottom">
   <div class="container-fluid">
-    <!-- Logo -->
-    <a class="navbar-brand" href="/staynest">
-      <i class="fa-solid fa-house"></i>
-    </a>
-
-    <!-- Hamburger Button -->
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNavAltMarkup"
-      aria-controls="navbarNavAltMarkup"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
 
     <!-- Collapsible Content -->
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav mx-auto">
-        <a class="nav-link active" href="/staynest">Home</a>
-        <a class="nav-link" href="/listings">All Listings</a>
+        <div class="navbar-nav">
+          <a class="nav-link" href="/listings">Explore</a>
+        </div>
+      <div class="navbar-nav ms-auto">
+          <a class="nav-link" href="/listings/new">Staynest Your Home</a>
+
+          <% if(!currUser) { %>
+              <a class="nav-link" href="/signup"><b>Sign up</b></a>
+              <a class="nav-link" href="/login"><b>Log in</b></a>
+          <% } %>
+
+          <% if(currUser) { %>
+              <a class="nav-link" href="/logout"><b>Log out</b></a>
+          <% } %>
       </div>
-      <% if(!currUser){ %>
-      <a href="/sign-up">
-      <button class="sign-up" id="openModal">Sign Up</button>
-      </a>
-      <a href="/sign-in">
-      <button class="sign-up" id="openModal">Sign In</button>
-      </a>
-      <%}%>
-      <% if(currUser){ %>
-      <a href="/logout">
-      <button class="sign-up" id="openModal">Log Out</button>
-      </a>
-      <%}%>
 
     </div>
   </div>

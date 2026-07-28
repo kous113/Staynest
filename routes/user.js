@@ -6,11 +6,11 @@ const asyncWrap=require("../utils/async.js");
 const userController=require("../controllers/user.js")
 
 //sign-up
-router.route("/sign_up")
+router.route("/sign-up")
 .get(userController.renderSignUpForm)
 .post(asyncWrap(userController.signUp));
 
-router.route("/sign_in")
+router.route("/sign-in")
 .get(userController.renderSignInForm)
 .post(saveRedirectUrl,passport.authenticate("local",{failureRedirect:"/sign-in", failureFlash:true,}), userController.signIn);
 

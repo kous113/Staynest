@@ -11,9 +11,8 @@ const listngSchema=new Schema({
     type: String,
   },  
   image:{
-    type: String,
-    default:"https://thumbs.dreamstime.com/b/idyllic-summer-landscape-clear-mountain-lake-alps-45054687.jpg",
-    set: (v)=>v===""?"https://thumbs.dreamstime.com/b/idyllic-summer-landscape-clear-mountain-lake-alps-45054687.jpg":(v),
+    url:String,
+    filename:String,
   },
   price:{
     type: Number,

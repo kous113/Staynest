@@ -1,7 +1,7 @@
 <% layout("/layouts/boilerplate") -%>
 <body>
   <h1>Edit</h1>
-  <form action="/listings/<%=list.id%>?_method=PUT" method="POST" novalidate class="needs-validation">
+  <form action="/listings/<%=list.id%>?_method=PUT" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
     <div class="row">
       <div class="col-8 offset-2">
         <div class="mb-3">
@@ -26,17 +26,17 @@
           ><%=list.description%></textarea>
           <div class="invalid-feedback">Add a Description</div>
         </div>
+        <div class="preview">
+          <img src="<%=originalUrl%>" alt="">
+        </div>
         <div class="mb-3">
           <label for="image" class="form-label">Image Link/Url</label>
           <input
             class="form-control"
-            type="text"
+            type="file"
             name="listings[image]"
             id="image"
-            value="<%=list.image%>"
-            required
           />
-          <div class="invalid-feedback">Image Can't be Blank</div>
         </div>
         <div class="row">
           <div class="mb-3 col-md-4">

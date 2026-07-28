@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+}
+
 const express = require("express");
 const app = express();
 const port = 8000;
@@ -22,6 +26,8 @@ const flash=require("connect-flash");
 const User=require("./models/user.js");
 const LocalStrategy = require("passport-local");
 const passport = require("passport");
+const multer  = require('multer')
+
 
 
 const sessionOptions={

@@ -10,8 +10,11 @@ module.exports.renderNewForm=(req, res) => {
 }
 //New List Creation
 module.exports.createList=async (req, res,next) => {
+  let url=req.file.path;
+  let filename=req.file.filename;
   const newList = new Listing(req.body.listings);
   newList.owner=req.user._id;
+  newList.image={url,filename};
   await newList.save();
   req.flash("success", "New list created suceesfully");
   res.redirect("/listings");
@@ -33,18 +36,26 @@ module.exports.showList=async (req, res) => {
 module.exports.updateForm=async (req, res) => {
   const { id } = req.params;
   const list = await Listing.findById(id);
+  let originalUrl=list.image.url;
+  originalUrl=originalUrl.replace("/upload","/upload/h_250");
   if(!list){
     req.flash("error", "The list you searched can not be find");
     res.redirect("/listings");
   }
   else{
-    res.render("edit.ejs", { list });
+    res.render("edit.ejs", { list,originalUrl });
   }  
 }
 //Updating a list
 module.exports.updateList=async (req, res) => {
-  const { id } = req.params;
+    const { id } = req.params;
     const list = await Listing.findByIdAndUpdate(id, { ...req.body.listings });
+    if(typeof req.file != "undefined"){
+      let url=req.file.path;
+      let filename=req.file.filename;
+      list.image={url,filename};
+      list.save();
+    }
     res.redirect(`/listings/${id}`);
 }
 //Deleting a List
