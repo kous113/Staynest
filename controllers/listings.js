@@ -34,7 +34,7 @@ module.exports.index = async (req, res) => {
 };
 //Rendering form for create new List
 module.exports.renderNewForm=(req, res) => {
-  res.render("newlist.ejs",{countries});
+  res.render("newList.ejs",{countries});
 }
 //New List Creation
 module.exports.createList=async (req, res,next) => {
