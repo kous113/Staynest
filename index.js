@@ -5,8 +5,6 @@ const express = require("express");
 const app = express();
 const port = 8000;
 const mongoose = require("mongoose");
-//const mongoURL = "mongodb://127.0.0.1:27017/staynest";
-const db_url=process.env.ATLASDB_URL;
 const path = require("path");
 const methodOverriding = require("method-override");
 const ejsMate = require("ejs-mate");
@@ -16,7 +14,6 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverriding("_method"));
 app.use(express.static("public"));
-const asyncWrap=require("./utils/async.js");
 const ExpressError=require("./utils/Expresserror.js");
 const listing=require("./routes/listing.js");
 const review=require("./routes/review.js")
@@ -27,28 +24,27 @@ const flash=require("connect-flash");
 const User=require("./models/user.js");
 const LocalStrategy = require("passport-local");
 const passport = require("passport");
-const multer  = require('multer')
 
 
 const store = MongoStore.create({
-    mongoUrl: db_url,
+    mongoUrl: process.env.ATLASDB_URL,
     crypto: {
         secret: process.env.SECRET,
     },
     touchAfter: 2 * 24 * 3600
 });
 
-store.on("error",()=>{
+store.on("error",(err)=>{
   console.log("got error in session store",err);
 })
 const sessionOptions={
   store,
-  secret: "mysecret",
+  secret:process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-    maxage: 7*24*60*60*1000,
+    maxAge: 7*24*60*60*1000,
     httpOnly: true,
   }
 };
@@ -78,7 +74,7 @@ main()
     console.log(err);
   });
 async function main() {
-  await mongoose.connect(db_url);
+  await mongoose.connect(process.env.ATLASDB_URL);
 }
 
 app.listen(port, () => {
