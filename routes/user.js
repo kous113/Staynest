@@ -5,6 +5,9 @@ const {saveRedirectUrl}=require("../middleware.js")
 const asyncWrap=require("../utils/async.js");
 const userController=require("../controllers/user.js")
 
+//homepage
+router.route("/")
+.get(userController.renderHomePage);
 //sign-up
 router.route("/sign-up")
 .get(userController.renderSignUpForm)

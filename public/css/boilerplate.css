@@ -45,7 +45,7 @@ h1 {
 .nav-link {
   padding: 0.5rem 1rem;
   border-radius: 1.5rem;
-  color: #e95b2e;
+  color: #e97f2e;
   transition: 150ms;
 }
 
@@ -59,7 +59,6 @@ h1 {
 .searchbox {
   width: 24rem;
   padding: 0.5rem 2rem;
-  border-radius: 1.5rem;
   max-width: 26rem;
 }
 
@@ -262,7 +261,7 @@ h1 {
 }
 
 .form-control {
-  border-radius: 0.7rem;
+  border-radius: 3rem;
 }
 
 .submit-button {

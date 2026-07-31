@@ -56,6 +56,13 @@
     <p>City</p>
 </div>
 
+<div class="filter <%= selectedCategory === 'Countryside' ? 'active-filter' : '' %>">
+    <div>
+        <i class="fa-solid fa-seedling" style="color: rgb(221, 109, 71);"></i>
+    </div>
+    <p>Countryside</p>
+</div>
+
 <div class="filter <%= selectedCategory === 'Arctic' ? 'active-filter' : '' %>">
     <div>
         <i class="fa-solid fa-snowflake" style="color: rgb(221, 109, 71);"></i>
@@ -104,5 +111,3 @@
                 </a>
             <%}%>
     </div>
-
-

@@ -47,6 +47,7 @@ const listngSchema = new Schema({
       "Arctic",
       "Boat",
       "Homestay",
+      "Country Side"
     ],
     default: "Trending",
   },

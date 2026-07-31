@@ -1,5 +1,10 @@
 const User = require("../models/user.js");
 
+
+//homepage
+module.exports.renderHomePage=(req,res)=>{
+  res.render("home.ejs",{ isHomePage: true });
+}
 //sign-up form
 module.exports.renderSignUpForm=(req, res) => {
     res.render("signUp.ejs", {

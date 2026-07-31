@@ -28,17 +28,33 @@
     <link rel="stylesheet" href="/css/signIn.css" />
     <link rel="stylesheet" href="/css/review.css">
     <link rel="stylesheet" href="/css/filter.css">
+    <link rel="stylesheet" href="/css/home.css">
   </head>
 
   <body>
     <%- include("../includes/navbar.ejs") %>
 
-    <div class="container">
-      <% if (typeof showGlobalFlash === "undefined" || showGlobalFlash) { %>
+<% if (typeof isHomePage !== "undefined" && isHomePage) { %>
+
+    <% if (typeof showGlobalFlash === "undefined" || showGlobalFlash) { %>
         <%- include("../includes/flash.ejs") %>
-      <% } %>
-      <%- body %>
+    <% } %>
+
+    <%- body %>
+
+<% } else { %>
+
+    <div class="container">
+
+        <% if (typeof showGlobalFlash === "undefined" || showGlobalFlash) { %>
+            <%- include("../includes/flash.ejs") %>
+        <% } %>
+
+        <%- body %>
+
     </div>
+
+<% } %>
 
     <%- include("../includes/footer.ejs") %>
 
@@ -50,5 +66,6 @@
     <script src="/javascript/signIn.js"></script>
     <script src="/javascript/gst.js"></script>
     <script src="/javascript/filter.js"></script>
+    <script src="/javascript/home.js"></script>
   </body>
 </html>
