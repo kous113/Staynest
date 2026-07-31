@@ -260,14 +260,12 @@ h1 {
   font-weight: 600;
 }
 
-.form-control {
-  border-radius: 3rem;
-}
-
 .submit-button {
   padding: 0.5rem 1.2rem;
 }
-
+.searchbox{
+  border-radius: 1.5rem;
+}
 /* ================= REVIEW CARDS ================= */
 
 .review-card {
