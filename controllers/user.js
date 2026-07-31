@@ -29,7 +29,6 @@ module.exports.signUp=async(req,res,next)=>{
 
 //Log in form
 module.exports.renderSignInForm=(req, res) => {
-  console.log(req.originalUrl);
     res.render("signIn.ejs", {
         showGlobalFlash: false
     });

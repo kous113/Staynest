@@ -1,12 +1,12 @@
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
 }
-
 const express = require("express");
 const app = express();
 const port = 8000;
 const mongoose = require("mongoose");
-const mongoURL = "mongodb://127.0.0.1:27017/staynest";
+//const mongoURL = "mongodb://127.0.0.1:27017/staynest";
+const db_url=process.env.ATLASDB_URL;
 const path = require("path");
 const methodOverriding = require("method-override");
 const ejsMate = require("ejs-mate");
@@ -22,6 +22,7 @@ const listing=require("./routes/listing.js");
 const review=require("./routes/review.js")
 const user=require("./routes/user.js")
 const session=require("express-session");
+const {MongoStore} = require('connect-mongo');
 const flash=require("connect-flash");
 const User=require("./models/user.js");
 const LocalStrategy = require("passport-local");
@@ -29,8 +30,19 @@ const passport = require("passport");
 const multer  = require('multer')
 
 
+const store = MongoStore.create({
+    mongoUrl: db_url,
+    crypto: {
+        secret: process.env.SECRET,
+    },
+    touchAfter: 2 * 24 * 3600
+});
 
+store.on("error",()=>{
+  console.log("got error in session store",err);
+})
 const sessionOptions={
+  store,
   secret: "mysecret",
   resave: false,
   saveUninitialized: true,
@@ -66,12 +78,13 @@ main()
     console.log(err);
   });
 async function main() {
-  await mongoose.connect(mongoURL);
+  await mongoose.connect(db_url);
 }
 
 app.listen(port, () => {
   console.log("server working");
 });
+
 
 app.use("/listings",listing);
 app.use("/listings/:id/review",review);

@@ -1,97 +1,292 @@
 <% layout("/layouts/boilerplate") -%>
-    <h3>Details</h3>
-    <div class="row">
-        <div class="card listing-card">
-            <div class="image col-6 offset-3">
-            <img src="<%=list.image.url%>" class="card-img-top" alt="anyimage">
-            </div>
-            <div class="card-body col-6 offset-3">
-                <p class="card-text">Owned By <i><b><%=list.owner.username%></b></i></p>
-                <p class="card-text"><b><%=list.title%></b></p>
-                <p class="card-text"><%=list.description%></p>
-                <p class="card-text"> &#8377;<%=list.price.toLocaleString("en-IN")%> </p>
-                <p class="card-text"><%=list.location%></p>
-                <p class="card-text"><%=list.country%></p>
-            </div>
+
+<h3>Details</h3>
+
+<div class="row">
+
+    <!-- Listing -->
+    <div class="card listing-card">
+
+        <!-- Image -->
+        <div class="image col-12 col-md-8 offset-md-2">
+            <img 
+                src="<%= list.image.url %>" 
+                class="card-img-top" 
+                alt="Listing image"
+            >
         </div>
-        <div class="show-btn col-6 offset-3 d-flex gap-2 mt-3">
-            <% if(currUser && currUser._id.equals(list.owner._id)){%>
-            <a href="/listings/<%=list.id%>/edit" class="btn">
-                Update
+
+        <!-- Listing Details -->
+        <div class="card-body col-12 col-md-8 offset-md-2">
+
+            <p class="card-text title mt-3">
+                <b><%= list.title %></b>
+            </p>
+
+            <p class="card-text listing-meta">
+                ★ <%= list.review.length %> Reviews
+                <b>·</b>
+                <%= list.location %>, <%= list.country %>
+            </p>
+            <hr>
+            <p class="description-title">
+                <b>About this place</b>
+            </p>
+
+            <div class="about">
+
+                <div class="description">
+
+                    <p class="card-text">
+                        <%= list.description %>
+                    </p>
+
+                    <p class="card-text hosted-by">
+                        Hosted by
+                        <i>
+                            <b><%= list.owner.username %></b>
+                        </i>
+                    </p>
+
+                </div>
+
+                <div class="price">
+
+                    <p>
+                        ₹<%= list.price.toLocaleString("en-IN") %>
+                        <span>/ night</span>
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Edit / Delete -->
+    <div class="show-actions col-12 col-md-8 offset-md-2 d-flex gap-2 mt-3">
+
+        <% if(currUser && currUser._id.equals(list.owner._id)){ %>
+
+            <a 
+                href="/listings/<%= list.id %>/edit" 
+                class="edit-button"
+            >
+                Edit List
             </a>
 
-            <form action="/listings/<%=list.id%>?_method=DELETE" method="POST" class="m-0">
-                <button class="btn" type="submit">
+            <form 
+                action="/listings/<%= list.id %>?_method=DELETE" 
+                method="POST" 
+                class="m-0"
+            >
+                <button 
+                    class="edit-button" 
+                    type="submit"
+                >
                     Delete
                 </button>
             </form>
-            <%}%>
-        </div>
-        <div class="review col-8 offset-2 mt-3 mb-3">
-            <h4>Reviews</h4>
-            <% if(currUser){%>
-            <form action="/listings/<%=list.id%>/review" class="needs-validation" novalidate method="POST">
+
+        <% } %>
+
+    </div>
+
+
+    <!-- Review Form -->
+    <div class="review col-12 col-md-8 offset-md-2 mt-4 mb-3">
+
+        <h4>Reviews</h4>
+
+        <% if(currUser){ %>
+
+            <form 
+                action="/listings/<%= list.id %>/review" 
+                class="needs-validation" 
+                novalidate 
+                method="POST"
+            >
+
+                <!-- Rating -->
                 <div class="ratings mt-3 mb-3">
-                    <label for="rating" class="form-label">Rating</label>
+
+                    <label for="rating" class="form-label">
+                        Rating
+                    </label>
+
                     <fieldset class="starability-slot">
-                    <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
-                    <input type="radio" id="first-rate1" name="review[rating]" value="1" />
-                    <label for="first-rate1" title="Terrible">1 star</label>
-                    <input type="radio" id="first-rate2" name="review[rating]" value="2" />
-                    <label for="first-rate2" title="Not good">2 stars</label>
-                    <input type="radio" id="first-rate3" name="review[rating]" value="3" />
-                    <label for="first-rate3" title="Average">3 stars</label>
-                    <input type="radio" id="first-rate4" name="review[rating]" value="4" />
-                    <label for="first-rate4" title="Very good">4 stars</label>
-                    <input type="radio" id="first-rate5" name="review[rating]" value="5" />
-                    <label for="first-rate5" title="Amazing">5 stars</label>
+
+                        <input 
+                            type="radio" 
+                            id="no-rate" 
+                            class="input-no-rate" 
+                            name="review[rating]" 
+                            value="1" 
+                            checked 
+                            aria-label="No rating."
+                        />
+
+                        <input 
+                            type="radio" 
+                            id="first-rate1" 
+                            name="review[rating]" 
+                            value="1"
+                        />
+                        <label for="first-rate1" title="Terrible">
+                            1 star
+                        </label>
+
+                        <input 
+                            type="radio" 
+                            id="first-rate2" 
+                            name="review[rating]" 
+                            value="2"
+                        />
+                        <label for="first-rate2" title="Not good">
+                            2 stars
+                        </label>
+
+                        <input 
+                            type="radio" 
+                            id="first-rate3" 
+                            name="review[rating]" 
+                            value="3"
+                        />
+                        <label for="first-rate3" title="Average">
+                            3 stars
+                        </label>
+
+                        <input 
+                            type="radio" 
+                            id="first-rate4" 
+                            name="review[rating]" 
+                            value="4"
+                        />
+                        <label for="first-rate4" title="Very good">
+                            4 stars
+                        </label>
+
+                        <input 
+                            type="radio" 
+                            id="first-rate5" 
+                            name="review[rating]" 
+                            value="5"
+                        />
+                        <label for="first-rate5" title="Amazing">
+                            5 stars
+                        </label>
+
                     </fieldset>
 
                 </div>
+
+
+                <!-- Comments -->
                 <div class="comments mb-3 mt-3">
-                    <label for="comments" class="form-label">Comments</label>
+
+                    <label for="comments" class="form-label">
+                        Comments
+                    </label>
+
                     <textarea
-                    rows="4"
-                    class="form-control"
-                    id="comments"
-                    name="review[comments]"
-                    placeholder="Share Your Thoughts.."
-                    required
+                        rows="4"
+                        class="form-control"
+                        id="comments"
+                        name="review[comments]"
+                        placeholder="Share your thoughts..."
+                        required
                     ></textarea>
-                    <div class="invalid-feedback">Add a Comment</div>
+
+                    <div class="invalid-feedback">
+                        Add a Comment
+                    </div>
+
                 </div>
-                <div class="button col-3">
-                <button type="submit" class="btn btn-outline-dark">Submit</button>
+
+
+                <!-- Submit -->
+                <div class="button">
+
+                    <button 
+                        type="submit" 
+                        class="btn submit-button"
+                    >
+                        Submit
+                    </button>
+
                 </div>
 
             </form>
-            <%}%>
-        </div>
-        <div class="allReviews col-8 offset-2">
-            <div class="row">
-            <%for(let review of list.review){%>
-                <div class="card col-5 mb-3 ms-3">
-                <div class="card-body">
-                    <p><b><%=review.author.username%></b></p>
-                    <p>
-                        <% for(let i = 1; i <=review.rating; i++) { %>
-                            <i class="fa-solid fa-star text-dark"></i>
-                        <% } %>
-                    </p>
-                    <p class="card-text"><%=review.comments%></p>
+
+        <% } %>
+
+    </div>
+
+
+    <!-- All Reviews -->
+    <div class="allReviews col-12 col-md-8 offset-md-2">
+
+        <div class="row">
+
+            <% for(let review of list.review){ %>
+
+                <div class="card review-card col-12 col-md-5 mb-3 ms-md-3">
+
+                    <div class="card-body">
+
+                        <p class="review-author">
+                            <b><%= review.author.username %></b>
+                        </p>
+
+                        <p class="review-stars">
+
+                            <% for(let i = 1; i <= review.rating; i++) { %>
+
+                                <i class="fa-solid fa-star"></i>
+
+                            <% } %>
+
+                        </p>
+
+                        <p class="card-text review-comment">
+                            <%= review.comments %>
+                        </p>
+
+                    </div>
+
+
+                    <!-- Delete Review -->
+                    <div class="delete">
+
+                        <form 
+                            action="/listings/<%= list.id %>/review/<%= review.id %>?_method=DELETE" 
+                            method="POST" 
+                            class="mb-3 mt-2"
+                        >
+
+                            <% if(currUser && currUser._id.equals(review.author._id)){ %>
+
+                                <button 
+                                    type="submit" 
+                                    class="btn btn-sm delete-review"
+                                >
+                                    Delete
+                                </button>
+
+                            <% } %>
+
+                        </form>
+
+                    </div>
+
                 </div>
-                <div class="delete">
-                <form action="/listings/<%=list.id%>/review/<%=review.id%>?_method=DELETE" method="POST" class="mb-3 mt-2">
-                    <%if(currUser && currUser._id.equals(review.author._id)){%>
-                    <button type="submit" class="btn btn-sm btn-outline-light">
-                        Delete
-                    </button>
-                    <%}%>
-                </form>
-                </div>
-                </div>
-            <%}%>
-            </div>
+
+            <% } %>
+
         </div>
 
     </div>
+
+</div>

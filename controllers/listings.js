@@ -1,12 +1,40 @@
 const Listing=require("../models/listing");
+const {getNames}=require("country-list");
+const countries=getNames();
 //Showing all Lists
-module.exports.index=async (req, res) => {
-  const allList = await Listing.find({});
-  res.render("index.ejs", { allList });
-}
+module.exports.index = async (req, res) => {
+    const { category, search } = req.query;
+
+    let allList;
+
+    if (search) {
+        allList = await Listing.find({ location: search });
+
+        if (allList.length === 0) {
+            req.flash("error", `No listings found in ${search}.`);
+            return res.redirect("/listings");
+        }
+    }
+    else if (category) {
+        allList = await Listing.find({ category });
+
+        if (allList.length === 0) {
+            req.flash("error", `No ${category} listings found.`);
+            return res.redirect("/listings");
+        }
+    }
+    else {
+        allList = await Listing.find({});
+    }
+
+    res.render("index.ejs", {
+        allList,
+        selectedCategory: category
+    });
+};
 //Rendering form for create new List
 module.exports.renderNewForm=(req, res) => {
-  res.render("newlist.ejs");
+  res.render("newlist.ejs",{countries});
 }
 //New List Creation
 module.exports.createList=async (req, res,next) => {

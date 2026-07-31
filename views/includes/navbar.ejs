@@ -1,24 +1,100 @@
-<nav class="navbar navbar-expand-md sticky-top border-bottom">
-  <div class="container-fluid">
+<nav class="navbar sticky-top border-bottom bg-white">
+    <div class="container-fluid custom-navbar">
 
-    <!-- Collapsible Content -->
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link" href="/listings">Explore</a>
+        <!-- Left -->
+        <div class="nav-left d-none d-md-flex">
+            <a class="nav-link" href="/listings">Explore</a>
         </div>
-      <div class="navbar-nav ms-auto">
-          <a class="nav-link" href="/listings/new">Staynest Your Home</a>
 
-          <% if(!currUser) { %>
-              <a class="nav-link" href="/signup"><b>Sign up</b></a>
-              <a class="nav-link" href="/login"><b>Log in</b></a>
-          <% } %>
+        <!-- Center -->
+        <div class="nav-center">
+            <form class="d-flex search" role="search" method="GET" action="/listings">
+                <input
+                    class="form-control me-2 searchbox"
+                    type="search"
+                    name="search"
+                    placeholder="Search By Location"
+                    aria-label="Search"
+                >
+                <button class="btn search-btn" type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+        </div>
 
-          <% if(currUser) { %>
-              <a class="nav-link" href="/logout"><b>Log out</b></a>
-          <% } %>
-      </div>
+        <!-- Right Desktop -->
+        <div class="nav-right d-none d-md-flex">
+
+            <a class="nav-link" href="/listings/new">
+                StayNest Your Home
+            </a>
+
+            <% if(!currUser){ %>
+
+                <a class="nav-link" href="/sign-up">
+                    <b>Sign Up</b>
+                </a>
+
+                <a class="nav-link" href="/sign-in">
+                    <b>Log In</b>
+                </a>
+
+            <% } else { %>
+
+                <a class="nav-link" href="/logout">
+                    <b>Log Out</b>
+                </a>
+
+            <% } %>
+
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button
+            class="navbar-toggler d-md-none"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mobileMenu">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
 
     </div>
-  </div>
+
+    <!-- Mobile Menu -->
+    <div class="collapse d-md-none" id="mobileMenu">
+
+        <div class="navbar-nav p-3">
+
+            <a class="nav-link" href="/listings">
+                Explore
+            </a>
+
+            <a class="nav-link" href="/listings/new">
+                StayNest Your Home
+            </a>
+
+            <% if(!currUser){ %>
+
+                <a class="nav-link" href="/sign-up">
+                    Sign Up
+                </a>
+
+                <a class="nav-link" href="/sign-in">
+                    Log In
+                </a>
+
+            <% } else { %>
+
+                <a class="nav-link" href="/logout">
+                    Log Out
+                </a>
+
+            <% } %>
+
+        </div>
+
+    </div>
+
 </nav>

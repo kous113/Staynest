@@ -1,6 +1,6 @@
 <% layout("/layouts/boilerplate") -%>
 <body>
-  <h1>Edit</h1>
+  <h1>Edit List</h1>
   <form action="/listings/<%=list.id%>?_method=PUT" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
     <div class="row">
       <div class="col-8 offset-2">
@@ -38,6 +38,22 @@
             id="image"
           />
         </div>
+      <div class="mb-3">
+          <label for="category" class="form-label">Category</label>
+            <select name="listings[category]" id="category" class="form-select" required>
+                <option value="<%=list.category%>"  selected><%=list.category%></option>
+                <option value="Beach">Beach</option>
+                <option value="Mountain">Mountain</option>
+                <option value="Camping">Camping</option>
+                <option value="Castle">Castle</option>
+                <option value="Farm">Farm</option>
+                <option value="Pool">Pool</option>
+                <option value="City">City</option>
+                <option value="Arctic">Arctic</option>
+                <option value="Boat">Boat</option>
+                <option value="Homestay">Homestay</option>
+            </select>
+      </div>
         <div class="row">
           <div class="mb-3 col-md-4">
             <label for="price" class="form-label">Price/night</label>
@@ -79,7 +95,7 @@
           </div>
         </div>
         <div>
-          <button class="btn btn-dark">Edit</button>
+          <button class="btn btn-dark">Update</button>
         </div>
       </div>
     </div>

@@ -7,11 +7,7 @@ const {
   CLOUD_API_KEY,
   CLOUD_API_SECRET,
 } = process.env;
-// console.log({
-//   CLOUD_NAME,
-//   CLOUD_API_KEY,
-//   CLOUD_API_SECRET,
-// });
+
 cloudinary.config({
     cloud_name:CLOUD_NAME,
     api_key:CLOUD_API_KEY,
