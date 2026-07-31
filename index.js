@@ -74,6 +74,8 @@ main()
     console.log(err);
   });
 async function main() {
+  console.log("ATLASDB_URL exists:", !!process.env.ATLASDB_URL);
+  console.log("ATLASDB_URL starts with:", process.env.ATLASDB_URL?.substring(0, 15));
   await mongoose.connect(process.env.ATLASDB_URL);
 }
 
